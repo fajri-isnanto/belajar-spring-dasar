@@ -1,25 +1,10 @@
 pipeline {
-    agent {
-        node {
-            label "java11"
-        }
-    }
+    agent any
     stages {
-        stage('Build') {
+        stage('Build') { 
             steps {
-                echo "hello build"
+                sh 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('Test') {
-            steps {
-                echo "hello Test"
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo "Deploy"
-            }
-        }
-        
     }
 }
