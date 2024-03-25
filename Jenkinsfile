@@ -1,9 +1,8 @@
 pipeline {
-    agent any
-    tools{
-        jdk 'OpenJDK11'
-        maven 'Maven3'
+    agent {
+        label 'java11'
     }
+
     stages {
         stage('Build') { 
             steps {
