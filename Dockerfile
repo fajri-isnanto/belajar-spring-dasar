@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY /var/lib/jenkins/workspace/rumah-kita/target/belajar-spring-dasar-0.0.1-SNAPSHOT.jar /app/belajar-spring-dasar-0.0.1-SNAPSHOT.jar
+COPY target/belajar-spring-dasar-0.0.1-SNAPSHOT.jar /app/belajar-spring-dasar-0.0.1-SNAPSHOT.jar
 
 # Command to run the application when the container starts
 CMD ["java", "-jar", "your-application.jar"]

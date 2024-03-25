@@ -26,7 +26,7 @@ pipeline {
             }           
         } 
 
-        stage('Build Image') {
+    stage('Build Image') {
             steps {
                 // Build Docker image
                 script {
