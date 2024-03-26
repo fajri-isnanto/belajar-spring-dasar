@@ -18,37 +18,29 @@ pipeline {
             }
         }
 
-    stage('Login to Docker Hub') {      	
-            steps{                       	
-                    //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -username $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
-                    sh 'echo "kodok1011" | docker login -u kalax1011 --password-stdin'               		
-                    echo 'Login Completed'      
-            }           
-        } 
+    // stage('Login to Docker Hub') {      	
+    //         steps{                       	
+    //                 //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -username $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
+    //                 sh 'echo "kodok1011" | docker login -u kalax1011 --password-stdin'               		
+    //                 echo 'Login Completed'      
+    //         }           
+    //     } 
 
-    stage('Build Image') {
-            steps {
-                // Build Docker image
-                script {
-                    //sh "docker build -t ${DOCKER_IMAGE} ."
-                    docker.build("${DOCKER_IMAGE}")
-                }
-            }
-        }
-
-        stage('Push Image to Docker Hub') {         
-            steps{                            
-                    sh 'docker push $DOCKER_IMAGE'           
-                    echo 'Push Image Completed'       
-            }            
-        }  
-
-    
-    
     // stage('Build Image') {
     //         steps {
-    //             sh 'docker login'
+    //             // Build Docker image
+    //             script {
+    //                 //sh "docker build -t ${DOCKER_IMAGE} ."
+    //                 docker.build("${DOCKER_IMAGE}")
+    //             }
     //         }
     //     }
+
+    //     stage('Push Image to Docker Hub') {         
+    //         steps{                            
+    //                 sh 'docker push $DOCKER_IMAGE'           
+    //                 echo 'Push Image Completed'       
+    //         }            
+    //     }   
     }
 }
