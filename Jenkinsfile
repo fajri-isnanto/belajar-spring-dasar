@@ -54,16 +54,18 @@ pipeline {
 
         stage('Stop Docker Container') {
             steps{
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh 'docker container stop ${CONTAINER_NAME}'
                 sh 'docker container rm ${CONTAINER_NAME}'
+                }
             }
         }
-        stage('Start Docker Container') {
+        stage('Start Tomcat Container') {
             steps{
                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}'
             }
         }
-        stage('cek container running') {
+        stage('cek Tomcat running') {
             steps{
                 sh 'curl http://172.20.103.221:8021'
             }
