@@ -9,4 +9,4 @@ RUN mv webapps.dist webapps
 COPY target/spring-1.jar /usr/local/tomcat/webapps
 EXPOSE 8080
 # Command to run the application when the container starts
- CMD ["catalina.sh", "run"]
+CMD ["catalina.sh", "run"]
