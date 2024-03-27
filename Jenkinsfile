@@ -42,5 +42,31 @@ pipeline {
                     echo 'Push Image Completed'       
             }            
         }   
+
+        stage('SSH to Docker Server') {
+            steps{
+                //ssh to server
+                // sh 'sshpass -p "!qwerty7" ssh root@172.20.103.221'
+                sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221'
+                sh 'docker pull $DOCKER_REPO'
+            }
+        }
+
+        stage('Stop Docker Container') {
+            steps{
+                sh 'docker container stop ${CONTAINER_NAME}'
+                sh 'docker container rm ${CONTAINER_NAME}'
+            }
+        }
+        stage('Start Docker Container') {
+            steps{
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}'
+            }
+        }
+        stage('cek container running') {
+            steps{
+                sh 'curl http://172.20.103.221:8021'
+            }
+        }
     }
 }
