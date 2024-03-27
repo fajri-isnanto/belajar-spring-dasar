@@ -47,7 +47,7 @@ pipeline {
             steps{
                 //ssh to server
                 // sh 'sshpass -p "!qwerty7" ssh root@172.20.103.221'
-                sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221 << "EOF" docker pull $DOCKER_REPO EOF '
+                sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221'
                 // sh 'docker pull $DOCKER_REPO'
             }
         }
