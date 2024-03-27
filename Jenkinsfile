@@ -67,7 +67,7 @@ pipeline {
         }
         stage('cek Tomcat running') {
             steps{
-                sh 'curl http://172.20.103.221:8021'
+                sh 'curl http://172.20.103.226:8021'
             }
         }
     }
