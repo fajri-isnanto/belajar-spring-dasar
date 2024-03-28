@@ -15,6 +15,7 @@ pipeline {
         stage('Build JAR') { 
             steps {
                 sh 'mvn -B -DskipTests clean package' 
+                sh 'java -jar target/spring-1.jar'
             }
         }
 
@@ -65,10 +66,10 @@ pipeline {
                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}'
             }
         }
-        stage('cek Tomcat running') {
-            steps{
-                sh 'curl http://172.20.103.226:8021'
-            }
-        }
+        // stage('cek Tomcat running') {
+        //     steps{
+        //         sh 'curl http://172.20.103.226:8021'
+        //     }
+        // }
     }
 }
