@@ -7,7 +7,7 @@ RUN mv webapps.dist webapps
 
 # Copy the JAR file into the container
 COPY target/spring-1.jar /usr/local/tomcat/webapps
-RUN chmod 777 spring-1.jar
+RUN chmod 777 /usr/local/tomcat/webapps/spring-1.jar
 EXPOSE 8080
 # Command to run the application when the container starts
 CMD ["catalina.sh", "run"]
