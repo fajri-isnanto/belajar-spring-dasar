@@ -74,7 +74,7 @@ pipeline {
                     if (previousBuildStatus == 'SUCCESS') {
                         echo "Container ${CONTAINER_NAME} has stopped"
                     } else {
-                        sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:{$BUILD_NUMBER}'
+                        sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${BUILD_NUMBER}'
                     }
                 }
             }
