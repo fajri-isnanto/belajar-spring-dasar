@@ -35,19 +35,19 @@ pipeline {
             }
         }
 
-        stage('Push Image to Docker Hub') {         
+    stage('Push Image to Docker Hub') {         
             steps{                            
                     sh 'docker push $DOCKER_IMAGE:$VERSION_NUMBER'           
                     echo 'Push Image Completed'       
             }            
         }   
 
-        stage('Delete Image after pushed') {         
+    stage('Delete Image after pushed') {         
             steps{                            
                     sh 'docker image rm  $DOCKER_IMAGE:$VERSION_NUMBER'           
             }       
         }
-        stage('Stop Docker Container') {
+    stage('Stop Docker Container') {
             steps{
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh 'docker container stop ${CONTAINER_NAME}'
@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage('Running Container') {
+    stage('Running Container') {
             steps {
                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
             }
