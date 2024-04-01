@@ -87,7 +87,7 @@ pipeline {
                 echo 'Hello, Discord!'
 
                 // Send a notification to Discord
-                discordSend(channel: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel', color: '#0099ff', message: 'Hello from Jenkins!')
+                discordSend description: '', footer: '', image: '', link: '', result: '', scmWebUrl: '', thumbnail: '', title: 'hello fajri title', webhookURL: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel'
             }
         }
 
@@ -99,7 +99,7 @@ post {
     sh 'yes | docker system prune'
 	sh 'docker logout'     
     // Send a notification to Discord regardless of the build result
-    discordSend(channel: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel', color: '#ff9900', message: "Build ${currentBuild.result}: ${currentBuild.fullDisplayName}")
+    // discordSend(channel: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel', color: '#ff9900', message: "Build ${currentBuild.result}: ${currentBuild.fullDisplayName}")
         }   
         success {
             echo 'Pipeline succeeded! Docker image built and pushed.'
