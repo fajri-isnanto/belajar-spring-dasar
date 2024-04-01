@@ -59,21 +59,27 @@ pipeline {
             }
         }
 
-        stage('Check Running Container') {
-            steps{
-                script {
-                    // Menyimpan status langkah sebelumnya
-                    def previousBuildStatus = currentBuild.previousBuild?.result ?: 'SUCCESS'
-
-                    // Mengecek apakah langkah sebelumnya berhasil atau gagal
-                    if (previousBuildStatus == 'SUCCESS') {
-                        echo "Container ${CONTAINER_NAME} has stopped"
-                    } else {
-                        sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
-                    }
-                }
+        stage('Running Container') {
+            steps {
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
             }
-        }        
+        }
+
+        // stage('Check Running Container') {
+        //     steps{
+        //         script {
+        //             // Menyimpan status langkah sebelumnya
+        //             def previousBuildStatus = currentBuild.previousBuild?.result ?: 'SUCCESS'
+
+        //             // Mengecek apakah langkah sebelumnya berhasil atau gagal
+        //             if (previousBuildStatus == 'SUCCESS') {
+        //                 echo "Container ${CONTAINER_NAME} has stopped"
+        //             } else {
+        //                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
+        //             }
+        //         }
+        //     }
+        // }        
     }
 
 post {
