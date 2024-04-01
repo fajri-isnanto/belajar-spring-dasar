@@ -83,4 +83,16 @@ pipeline {
 
         
     }
+post {
+        always {  
+    sh 'docker system prune -y'
+	sh 'docker logout'     
+        }   
+        success {
+            echo 'Pipeline succeeded! Docker image built and pushed.'
+        }
+        failure {
+            echo 'Pipeline failed! Handle errors if needed.'
+        }
+    }
 }
