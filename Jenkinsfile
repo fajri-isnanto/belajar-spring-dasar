@@ -47,7 +47,7 @@ pipeline {
         stage('Delete Image after pushed') {         
             steps{                            
                     sh 'docker image rm  $DOCKER_IMAGE:$BUILD_NUMBER'           
-            }            
+            }       
         }
 
         stage('SSH to Docker Server') {
