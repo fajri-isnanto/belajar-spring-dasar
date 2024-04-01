@@ -8,8 +8,6 @@ pipeline {
         DOCKER_REPO = 'kalax1011/springboot'
         CONTAINER_NAME = 'springboot'
         VERSION_NUMBER = '14'
-        // DOCKERHUB_CREDENTIALS_PSW = 'kodok1011'
-        // DOCKERHUB_CREDENTIALS_USR = 'kalax1011'
     }
 
     stages {
@@ -22,7 +20,6 @@ pipeline {
 
     stage('Login to Docker Hub') {      	
             steps{                       	
-                    //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -username $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
                     sh 'echo "kodok1011" | docker login -u kalax1011 --password-stdin'               		
                     echo 'Login Completed'      
             }           
@@ -64,22 +61,6 @@ pipeline {
                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
             }
         }
-
-        // stage('Check Running Container') {
-        //     steps{
-        //         script {
-        //             // Menyimpan status langkah sebelumnya
-        //             def previousBuildStatus = currentBuild.previousBuild?.result ?: 'SUCCESS'
-
-        //             // Mengecek apakah langkah sebelumnya berhasil atau gagal
-        //             if (previousBuildStatus == 'SUCCESS') {
-        //                 echo "Container ${CONTAINER_NAME} has stopped"
-        //             } else {
-        //                 sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:${VERSION_NUMBER}'
-        //             }
-        //         }
-        //     }
-        // }        
     }
 
 post {
