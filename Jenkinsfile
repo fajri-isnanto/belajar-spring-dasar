@@ -50,15 +50,11 @@ pipeline {
             }       
         }
 
-        stage('SSH to Docker Server') {
-            steps{
-                //ssh to server
-                // sh 'sshpass -p "!qwerty7" ssh root@172.20.103.221'
-                sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221'
-                // sh 'docker pull $DOCKER_REPO'
-            }
-        }
-
+        // stage('SSH to Docker Server') {
+        //     steps{
+        //         sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221'
+        //     }
+        // }
         stage('Stop Docker Container') {
             steps{
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -67,15 +63,32 @@ pipeline {
                 }
             }
         }
-        stage('Start Tomcat Container') {
+
+        stage('Check Running Container') {
             steps{
-                sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:{$BUILD_NUMBER}'
+                script {
+                    // Menyimpan status langkah sebelumnya
+                    def previousBuildStatus = currentBuild.previousBuild?.result ?: 'SUCCESS'
+                    
+                    // Mengecek apakah langkah sebelumnya berhasil atau gagal
+                    if (previousBuildStatus == 'SUCCESS') {
+                        echo "Container ${CONTAINER_NAME} has stopped"
+                    } else {
+                        sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:{$BUILD_NUMBER}'
+                    }
+                }
             }
         }
-        // stage('cek Tomcat running') {
+
+        // stage('Start Tomcat Container') {
         //     steps{
-        //         sh 'curl http://172.20.103.226:8021'
+        //         sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:{$BUILD_NUMBER}'
         //     }
         // }
+        stage('cek Tomcat running') {
+            steps{
+                sh 'curl http://172.20.103.226:8021'
+            }
+        }
     }
 }
