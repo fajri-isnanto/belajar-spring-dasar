@@ -32,7 +32,7 @@ pipeline {
                 // Build Docker image
                 script {
                     //sh "docker build -t ${DOCKER_IMAGE} ."
-                    docker.build("${DOCKER_IMAGE}:2")
+                    docker.build("${DOCKER_IMAGE}:${BUILD_NUMBER}")
                 }
             }
         }
