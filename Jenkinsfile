@@ -85,7 +85,8 @@ pipeline {
     }
 post {
         always {  
-    sh 'docker system prune -y'
+    // Run docker system prune with automatic confirmation using 'yes'
+    sh 'yes | docker system prune'
 	sh 'docker logout'     
         }   
         success {
