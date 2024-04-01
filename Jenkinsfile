@@ -50,12 +50,6 @@ pipeline {
                     sh 'docker image rm  $DOCKER_IMAGE:$VERSION_NUMBER'           
             }       
         }
-
-        // stage('SSH to Docker Server') {
-        //     steps{
-        //         sh 'sshpass -p "!qwerty7" ssh -o StrictHostKeyChecking=no root@172.20.103.221'
-        //     }
-        // }
         stage('Stop Docker Container') {
             steps{
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -70,7 +64,7 @@ pipeline {
                 script {
                     // Menyimpan status langkah sebelumnya
                     def previousBuildStatus = currentBuild.previousBuild?.result ?: 'SUCCESS'
-                    
+
                     // Mengecek apakah langkah sebelumnya berhasil atau gagal
                     if (previousBuildStatus == 'SUCCESS') {
                         echo "Container ${CONTAINER_NAME} has stopped"
