@@ -32,7 +32,7 @@ pipeline {
                 // Build Docker image
                 script {
                     //sh "docker build -t ${DOCKER_IMAGE} ."
-                    docker.build("${DOCKER_IMAGE}")
+                    docker.build("${DOCKER_IMAGE}:${BUILD_NUMBER}")
                 }
             }
         }
@@ -43,6 +43,12 @@ pipeline {
                     echo 'Push Image Completed'       
             }            
         }   
+
+        stage('Delete Image after pushed') {         
+            steps{                            
+                    sh 'docker image rm  $DOCKER_IMAGE:$BUILD_NUMBER'           
+            }            
+        }
 
         stage('SSH to Docker Server') {
             steps{
@@ -63,7 +69,7 @@ pipeline {
         }
         stage('Start Tomcat Container') {
             steps{
-                sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 8021:8080 ${DOCKER_IMAGE}:{$BUILD_NUMBER}'
             }
         }
         // stage('cek Tomcat running') {
