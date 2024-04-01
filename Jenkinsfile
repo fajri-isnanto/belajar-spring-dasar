@@ -79,25 +79,16 @@ pipeline {
                     }
                 }
             }
-        }
-
-        stage('Send Notifications Discord') {
-            steps {
-                // Print a hello message
-                echo 'Hello, Discord!'
-
-                // Send a notification to Discord
-                discordSend description: '', footer: '', image: '', link: '', result: '', scmWebUrl: '', showChangeset: true, thumbnail: '', title: 'hello fajri title', webhookURL: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel'
-            }
-        }
-
-        
+        }        
     }
+
 post {
         always {  
     // Run docker system prune with automatic confirmation using 'yes'
     sh 'yes | docker system prune'
-	sh 'docker logout'     
+	sh 'docker logout'   
+    // Discord Notifications  
+    discordSend description: '', footer: '', image: '', link: '', result: 'SUCCESS', scmWebUrl: '', showChangeset: true, thumbnail: '', title: 'Pipeline: rumah-kita', webhookURL: 'https://discord.com/api/webhooks/1224199340470304768/y-0Lp0Hw8ocA6-noJ0k5yuuLOv6Q5ZhHjEEdk43P-up-10T2CzxsBQk2CmRSzC3Hzbel'
         }   
         success {
             echo 'Pipeline succeeded! Docker image built and pushed.'
